@@ -28,9 +28,9 @@ import * as serviceWorker from './serviceWorker';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import HeaderBar from './components/HeaderBar';
-//ADD HERE
+// TODO: IMPORT TodoPage
 import TodoPage from './pages/TodoPage';
-//END
+// END
 
 
 const environment = process.env.NODE_ENV;
@@ -47,9 +47,9 @@ ReactDOM.render(
           <div className="p-col-6">
             <Switch>
               <Route exact path="/" component={HomePage}></Route>
-//ADD HERE
+// TODO: ADD ROUTE
                 <Route exact path="/todo" component={TodoPage}></Route>
-//END
+// END
             </Switch>
           </div>
           <div className="p-col-3" />
@@ -71,21 +71,21 @@ serviceWorker.unregister();
 frontend/src/pages/TodoPage.tsx
 ```typescript=
 import React from 'react';
-//ADD HERE
+// TODO: IMPORT REDUX
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { selectUser } from '../features/user/userSlice';
-//END
+// END
 export default function TodoPage()
 {
-//ADD HERE
+// TODO: ADD REDUX FUNCTION
     const dispatch = useAppDispatch();
     const user = useAppSelector(selectUser);
-//END
+// END
     return (
     <>
-//ADD HERE
+// TODO: ADD HELLO MESSAGE
         <h3>hello, {user.name}</h3>
-//END
+// END
     </>
     );
 }
@@ -107,12 +107,12 @@ export default function HeaderBar() {
       label: 'Home',
       command: () => history.push('/'),
     }
-//ADD HERE
+// TODO: ADD TODO LINK
     ,{
         label: 'Todo',
         command: () => history.push('/todo'),
     }
-//END
+// END
   ];
   return (
     <>
@@ -126,28 +126,28 @@ frontend/src/pages/TodoPage.tsx
 
 ### 2-1 Create Todo Part
 ```typescript=
-//MODIFY
+// TODO: IMPORT useState
 import React, { useState }from 'react';
-//END
+// END
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { selectUser } from '../features/user/userSlice';
-//ADD HERE
+// TODO: IMPORT InputText, Button FROM PRIMEREACT
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
-//END
+// END
 
 export default function TodoPage()
 {
     const dispatch = useAppDispatch();
     const user = useAppSelector(selectUser);
-//ADD HERE
+// TODO: ADD useState
     const [inputTodo, setInputTodo] = useState<string>('');
-//END
+// END
     
     return (
     <>
         <h3>hello, {user.name}</h3>
-//ADD HERE
+// TODO: ADD CREATE TODO TEMPLATE
         <div className="p-d-inline-flex p-mt-6">
             <div className="p-mb-2 p-m-1">
                 <span className="p-float-label">
@@ -163,7 +163,7 @@ export default function TodoPage()
                 <Button label="Submit" onClick={() => (console.log('create',inputTodo))}></Button>
             </div>
         </div>
-//END
+// END
     </>
     );
 }
@@ -176,11 +176,11 @@ import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { selectUser } from '../features/user/userSlice';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
-//ADD HERE
+// TODO: IMPORT Card, Tag FROM PRIMEREACT & TYPES 
 import { Card } from 'primereact/card';
 import { Tag } from 'primereact/tag';
 import { TodoBody, TodoStatus } from '../types/todo';
-//END
+// END
 
 export default function TodoPage()
 {
@@ -188,14 +188,15 @@ export default function TodoPage()
     const user = useAppSelector(selectUser);
     const [inputTodo, setInputTodo] = useState<string>('');
 
-//ADD HERE
+// TODO: ADD MOCK DATA
     const temArr: Array<TodoBody> = [
       {id: '1',name:'Mon.',status: TodoStatus.NotStarted},
       {id: '2',name:'Tue.',status:TodoStatus.NotStarted},
       {id: '3',name:'Wed.',status:TodoStatus.NotStarted},
       {id: '4',name:'Thur.',status:TodoStatus.NotStarted}
     ];
-
+// END
+// TODO: ADD TODO TEMPLATE
     const notStartTag = () => {
         return <Tag value="Not Started"></Tag>;
       };
@@ -231,7 +232,7 @@ export default function TodoPage()
           </div>
         );
       };
-//END
+// END
 
     return (
     <>
@@ -251,9 +252,9 @@ export default function TodoPage()
                 <Button label="Submit" onClick={() => (console.log('create',inputTodo))}></Button>
             </div>
         </div>
-//ADD HERE
+// TODO: RENDER TODO ARRAY
         <div className="p-mt-2">{temArr.map((e)=>cardTemplate(e))}</div>
-//END
+// END
     </>
     );
 }
@@ -268,9 +269,9 @@ import { Button } from 'primereact/button';
 import { Card } from 'primereact/card';
 import { Tag } from 'primereact/tag';
 import { TodoBody, TodoStatus } from '../types/todo';
-//ADD HERE
+// TODO: IMPORT confirmDialog FROM PRIMEREACT
 import { confirmDialog } from 'primereact/confirmdialog';
-//END
+// END
 
 export default function TodoPage()
 {
@@ -284,7 +285,7 @@ export default function TodoPage()
       {id: '3',name:'Wed.',status:TodoStatus.NotStarted},
       {id: '4',name:'Thur.',status:TodoStatus.NotStarted}
     ];
-//ADD HERE
+// TODO: ADD CONFIRMDIALOG
     const acceptUpdateStatus = async (todoObject: TodoBody) => {
         console.log(todoObject);
         console.log('Accept update status');
@@ -317,7 +318,7 @@ export default function TodoPage()
             reject: () => rejectDeleteTodo(todoObject),
         });
     };
-//END
+// END
     const notStartTag = () => {
         return <Tag value="Not Started"></Tag>;
       };
@@ -331,18 +332,18 @@ export default function TodoPage()
               className="p-button-success p-m-1"
               label="Start"
               icon="pi pi-play"
-//MODIFY HERE
+// TODO: ONCLICK TO TRIGGER CONFIRMDIALOG
               onClick={() => confirmUpdateStatus(todoObject)}
-//END
+// END
             />
             
             <Button
               className="p-button-danger p-m-1"
               label="Delete"
               icon="pi pi-trash"
-//MODIFY HERE
+// TODO: ONCLICK TO TRIGGER CONFIRMDIALOG
               onClick={() => confirmDeleteTodo(todoObject)}
-//END
+// END
             />
           </span>
         );
@@ -433,9 +434,9 @@ async putTodo(todoObject: TodoBody): Promise<AxiosResponse<TodoResponse>> {
 frontend/src/pages/TodoPage.tsx
 ### 4-1 Get todo
 ```typescript=
-//MODIFY HERE
+// TODO: IMPORT useEffect
 import React, { useState,useEffect }from 'react';
-//END
+// END
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { selectUser } from '../features/user/userSlice';
 import { InputText } from 'primereact/inputtext';
@@ -444,17 +445,18 @@ import { Card } from 'primereact/card';
 import { Tag } from 'primereact/tag';
 import { TodoBody, TodoStatus } from '../types/todo';
 import { confirmDialog } from 'primereact/confirmdialog';
-//ADD HERE
+// TODO: IMPORT NodeService
 import { NodeService } from '../services/NodeService';
-//END
+// END
 
 export default function TodoPage()
 {
     const dispatch = useAppDispatch();
     const user = useAppSelector(selectUser);
     const [inputTodo, setInputTodo] = useState<string>('');
-//ADD HERE
+// TODO: ADD useState FOR TODOLIST & use api to get todolist
     const [todolist, setTodolist] = useState<Array<TodoBody>>([]);
+    
     const nodeService = new NodeService();
 
 
@@ -464,15 +466,16 @@ export default function TodoPage()
       const getTodos = async () => {
         await nodeService.getTodo().then((res) => setTodolist(res.data.todos));
       };
-//END
-//MODIFY HERE
+// END
+
+// TODO: COMMENT OUT MOCK DATA
     // const temArr: Array<TodoBody> = [
     //   {id: '1',name:'Mon.',status: TodoStatus.NotStarted},
     //   {id: '2',name:'Tue.',status:TodoStatus.NotStarted},
     //   {id: '3',name:'Wed.',status:TodoStatus.NotStarted},
     //   {id: '4',name:'Thur.',status:TodoStatus.NotStarted}
     // ];
-//END
+// END
     const acceptUpdateStatus = async (todoObject: TodoBody) => {
         console.log(todoObject);
         console.log('Accept update status');
@@ -560,9 +563,9 @@ export default function TodoPage()
             </div>
         </div>
         <div className="p-mt-2">
-//MODIFY HERE            
+// TODO: REPLACE MOCK DATA ARRAY           
             {todolist.map((e)=>cardTemplate(e))}
-//END
+// END
         </div>
     </>
     );
@@ -596,13 +599,13 @@ export default function TodoPage()
       const getTodos = async () => {
         await nodeService.getTodo().then((res) => setTodolist(res.data.todos));
       };
-//ADD HERE
+// TODO: ADD POST API METHOD
       const createTodo = async () => {
         await nodeService
           .postTodo({ name: inputTodo, status: TodoStatus.NotStarted })
           .then((res) => setTodolist(res.data.todos));
       };
-//END
+// END
     // const temArr: Array<TodoBody> = [
     //   {id: '1',name:'Mon.',status: TodoStatus.NotStarted},
     //   {id: '2',name:'Tue.',status:TodoStatus.NotStarted},
@@ -692,9 +695,9 @@ export default function TodoPage()
                 </span>
             </div>
             <div className="p-mb-2 p-m-1">
-//MODIFY HERE
+// TODO: ADD ONCLICK FUNCTION WITH CREATE
                 <Button label="Submit" onClick={() => (createTodo())}></Button>
-//END
+// END
             </div>
         </div>
         <div className="p-mt-2">{todolist.map((e)=>cardTemplate(e))}</div>
@@ -741,7 +744,7 @@ export default function TodoPage()
     //   {id: '4',name:'Thur.',status:TodoStatus.NotStarted}
     // ];
     const acceptUpdateStatus = async (todoObject: TodoBody) => {
-//MODIFY HERE
+// TODO: ADD PUT METHOD
         if (todoObject.id !== undefined) {
           await nodeService
             .putTodo({ id: todoObject.id, name: todoObject.name, status: TodoStatus.Process })
@@ -749,7 +752,7 @@ export default function TodoPage()
         }
     
         console.log(todoObject);
-//END
+// END
       };
       const acceptDeleteTodo = async (todoObject: TodoBody) => {
         console.log(todoObject);
@@ -886,10 +889,10 @@ export default function TodoPage()
         console.log(todoObject);
       };
       const acceptDeleteTodo = async (todoObject: TodoBody) => {
-//MODIFY HERE
+// TODO: ADD DELETE METHOD
         await nodeService.deleteTodo(todoObject).then((res) => setTodolist(res.data.todos));
         console.log(todoObject);
-//END
+// END
       };
       const rejectUpdateStatus = (todoObject: TodoBody) => {
         console.log(todoObject);
@@ -1007,9 +1010,9 @@ export function MockServer({ environment = 'development' }) {
     return createServer({
       environment,
       models: {
-//ADD HERE
+// TODO: ADD MODEL
         todo: Model.extend<Partial<TodoBody>>({}),
-//END
+// END
       },
       factories: {
       },
@@ -1037,7 +1040,7 @@ export function MockServer({ environment = 'development' }) {
       seeds(server) {
       },
       routes() {
-//ADD HERE
+// TODO: ADD ROUTES
         this.get('/todos', (schema, request) => {
             return schema.all('todo');
           });
@@ -1062,7 +1065,7 @@ export function MockServer({ environment = 'development' }) {
             }
             return schema.all('todo');
           });
-//END
+// END
       },
     });
   }
@@ -1080,17 +1083,17 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import HeaderBar from './components/HeaderBar';
 import TodoPage from './pages/TodoPage';
-//ADD HERE
+// TODO: IMPORT MockServer
 import { MockServer } from './services/MockServer';
-//END
+// END
 
 const environment = process.env.NODE_ENV;
 
-//ADD HERE
+// TODO: SETUP MockServer
 if (environment !== 'production') {
   MockServer({ environment });
 }
-//END
+// END
 
 ReactDOM.render(
   <React.StrictMode>
@@ -1125,9 +1128,9 @@ frontend/src/services/MockServer.ts
 ```typescript=
 import { createServer, Factory, Model} from 'miragejs';
 import { TodoBody, TodoStatus } from '../types/todo';
-//ADD HERE
+// TODO: IMPORT FAKER
 import faker from 'faker';
-//END
+// END
 
 export function MockServer({ environment = 'development' }) {
     return createServer({
@@ -1136,7 +1139,7 @@ export function MockServer({ environment = 'development' }) {
         todo: Model.extend<Partial<TodoBody>>({}),
       },
       factories: {
-//ADD HERE
+// TODO: ADD MOCK DATA
         todo: Factory.extend<Partial<TodoBody>>({
             get name() {
               //console.log(this.id)
@@ -1147,14 +1150,14 @@ export function MockServer({ environment = 'development' }) {
               return TodoStatus.NotStarted;
             },
           }),
-//END
+// END
       },
       seeds(server) {
-//ADD HERE
+// TODO: ADD MOCK DATA
           //server.schema.create('todo',{ name: "Go to Market" });
         //server.create("todo", { name: "Buy Cookies" });
         server.createList('todo', 3);
-//END
+// END
       },
       routes() {
         this.get('/todos', (schema, request) => {
